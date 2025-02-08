@@ -1,1 +1,19 @@
-https://dlm.emanualonline.com/product/0d700245539712/?page=5538
+from webarchive import extract
+from bs4 import BeautifulSoup
+
+# Extract HTML from webarchive
+with open("https://dlm.emanualonline.com/product/0d700245539712/?page=7798","rb") as file:
+    html_content = extract(file)
+
+# Parse HTML
+soup = BeautifulSoup(html_content, "html.parser")
+
+# Extract relevant text (e.g., M112 engine details)
+keywords = ["M112", "W203", "Mercedes-Benz", "V6", "engine"]
+filtered_text = "\n".join([line for line in soup.get_text().split("\n") if any(word in line for word in keywords)])
+
+# Save output
+with open("extracted_data.txt", "w") as output_file:
+    output_file.write(filtered_text)
+
+print("Extraction complete! Check extracted_data.txt.")page=5538
